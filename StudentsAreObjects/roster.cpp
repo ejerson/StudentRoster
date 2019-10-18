@@ -19,17 +19,21 @@ int main() {
 	Roster* classRoster = nullptr;
 	classRoster = new Roster(3);
 
-	
-
-	
-	
-
+	int classArraySize = 0;
 	
 	
 	classRoster->add("A1", "John", "Smith", "John@nmsu.edu", 20, 30, 35, 40, NETWORKING);
 	classRoster->add("A2", "Second", "Person", "Second@nmsu.edu", 25, 10, 12, 66, SECURITY);
+	classRoster->add("A3", "Third", "Individual", "third@nmsu.edu", 23, 15, 33, 78, SOFTWARE);
+
+	// FIX ME: create a function that will get the array size anytime a classRosterArray element is added or removed
+	// for (int i = 0; i < 
+
 
 	classRoster->printAll();
+
+	
+
 
 	// Calls printDaysInCourses, this prints the average days for three courses
 	//newRoster->printDaysInCourse(newRoster->classRosterArray[1]->GetStudentID());
@@ -110,10 +114,15 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 
 // removes students from the roster by student ID. If the student ID does not exist, 
 // the function prints an error message indicating that the student was not found.
-void Roster::remove(string studentID)
-{
+void Roster::remove(string studentID) {
 	
+	for (int i = 0; i < 3; ++i) {
 
+		if ((classRosterArray[i] != nullptr) & (this->classRosterArray[i]->GetStudentID() == studentID)) {
+			delete this->classRosterArray[i];
+		}
+
+	}
 	
 	return;
 }
@@ -126,11 +135,11 @@ void Roster::remove(string studentID)
 // classRosterArrayand call the print() function for each student.
 void Roster::printAll() {
 	
-	for (int i = 0; i < 2; ++i) {
+	for (int i = 0; i < 3; ++i) {
 
 		cout << i + 1;
 		this->classRosterArray[i]->Print();
-
+		
 	}
 
 	return;

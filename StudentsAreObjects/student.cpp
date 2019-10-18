@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "student.h"
 
 using namespace std;
@@ -106,11 +107,11 @@ void Student::Print() {
 
 	}
 
-	cout << "\tFirstName : " << GetFirstName();
-	cout << "\tLastName: " << GetLastName();
-	cout << "\tAge : " << GetAge();
-	cout << "\tDays In Course : " << "{ " << GetDaysInCourses()[0] << ", " << GetDaysInCourses()[1] << ", " << GetDaysInCourses()[2] << " }";
-	cout << "\tDegree Program : " << degreeString;
+	cout << setw(10) << "\tFirstName : " << GetFirstName();
+	cout << setw(10) << "\tLastName: " << GetLastName();
+	cout << setw(10) << "\tAge : " << GetAge();
+	cout << setw(10) << "\tDays In Course : " << "{ " << GetDaysInCourses()[0] << ", " << GetDaysInCourses()[1] << ", " << GetDaysInCourses()[2] << " }";
+	cout << setw(10) << "\tDegree Program : " << degreeString;
 	cout << endl;
 
 
