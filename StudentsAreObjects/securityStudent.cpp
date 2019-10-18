@@ -7,14 +7,12 @@ using namespace std;
 
 // Overrides student.cpp Print() function
 void SecurityStudent::Print() {
-	
-	cout << "SECURITY" << endl;
+	Student::Print();
 
 	return;
 }
 
 Degree SecurityStudent::GetDegreeProgram() {
 
-	cout << "GetDegreeProgram Invoked SECURITY" << endl;
 	return degreeProgram;
 }

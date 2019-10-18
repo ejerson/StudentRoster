@@ -86,6 +86,34 @@ void Student::SetDegreeProgram(Degree degreeProgram) {
 
 // Virtual functions
 void Student::Print() {
+
+
+	string degreeString = "";
+
+	switch (GetDegreeProgram()) {
+		case SECURITY:
+			degreeString = "SECURITY";
+			break;
+		case NETWORKING: 
+			degreeString = "NETWORKING";
+			break;
+		case SOFTWARE:
+			degreeString = "SOFTWARE";
+			break;
+		default:
+			degreeString = "OTHER";
+			break;
+
+	}
+
+	cout << "\tFirstName : " << GetFirstName();
+	cout << "\tLastName: " << GetLastName();
+	cout << "\tAge : " << GetAge();
+	cout << "\tDays In Course : " << "{ " << GetDaysInCourses()[0] << ", " << GetDaysInCourses()[1] << ", " << GetDaysInCourses()[2] << " }";
+	cout << "\tDegree Program : " << degreeString;
+	cout << endl;
+
+
 	return;
 }
 

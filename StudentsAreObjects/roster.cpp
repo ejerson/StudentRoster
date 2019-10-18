@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
 
-	const string studentData[] =
+	const string studentData[5] =
 	{ "A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
 	"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
 	"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
@@ -19,7 +19,7 @@ int main() {
 	Roster* classRoster = nullptr;
 	classRoster = new Roster(3);
 
-	// Initializes classRoster Array
+	
 
 	
 	
@@ -30,14 +30,13 @@ int main() {
 	classRoster->add("A2", "Second", "Person", "Second@nmsu.edu", 25, 10, 12, 66, SECURITY);
 
 	classRoster->printAll();
-	classRoster->printByDegreeProgram(classRoster->classRosterArray[1]->GetDegreeProgram());
 
 	// Calls printDaysInCourses, this prints the average days for three courses
 	//newRoster->printDaysInCourse(newRoster->classRosterArray[1]->GetStudentID());
 
 	//cout << sizeof(classRoster->classRosterArray) << endl;
 
-	cout << classRoster->classRosterArray[1]->GetLastName() << endl;
+	//cout << classRoster->classRosterArray[1]->GetLastName() << endl; 
 
 
 	delete classRoster;
@@ -51,7 +50,8 @@ Roster::Roster(int arraySize) {
 
 	classRosterArray = new Student * [arraySize];
 
-	for (int i = 0; i < 3; ++i) {
+	// Initializes classRoster Array
+	for (int i = 0; i < arraySize; ++i) {
 		this->classRosterArray[i] = nullptr;
 	}
 
@@ -96,6 +96,7 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 					break;
 				}
 			
+			// stops the for loop when all student have been added
 			break;
 			
 			
@@ -125,7 +126,12 @@ void Roster::remove(string studentID)
 // classRosterArrayand call the print() function for each student.
 void Roster::printAll() {
 	
-	cout << this->classRosterArray[1]->GetDegreeProgram() << endl;
+	for (int i = 0; i < 2; ++i) {
+
+		cout << i + 1;
+		this->classRosterArray[i]->Print();
+
+	}
 
 	return;
 }

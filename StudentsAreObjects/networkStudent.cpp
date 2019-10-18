@@ -7,7 +7,7 @@ using namespace std;
 // Overrides student.cpp Print() function
 void NetworkStudent::Print() {
 
-	cout << "NETWORKING" << endl;
+	Student::Print();
 	return;
 }
 

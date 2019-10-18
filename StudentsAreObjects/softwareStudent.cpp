@@ -11,16 +11,12 @@ using namespace std;
 void SoftwareStudent::Print() {
 
 
-	if (degreeProgram == Degree::SOFTWARE) {
-		cout << "SOFTWARE" << endl;
-
-	}
+	Student::Print();
 
 	return;
 }
 
 Degree SoftwareStudent::GetDegreeProgram() {
 
-	cout << "GetDegreeProgram Invoked SOFTWARE" << endl;
 	return degreeProgram;
 }
