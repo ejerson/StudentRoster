@@ -15,7 +15,7 @@ int main() {
 	"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
 	"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
 	"A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
-	"A5,Ejerson,Balabas,ebalaba@wgu.edu,31,0,SOFTWARE" };
+	"A5,Ejerson,Balabas,ebalaba@wgu.edu,31,0,5,33,COMPUTER SCIENCE" };
 
 	const int arraySize = sizeof(studentData) / sizeof(studentData[0]);
 
@@ -23,27 +23,60 @@ int main() {
 	classRoster.SetArraySize(arraySize);
 
 	// Populates the classRosterArray using the studentData array
-	for (int i = 0; i < arraySize; ++i) {
+	for (int i = 0; i < arraySize; i++) {
+
+		string individualStudent = studentData[i];
+		istringstream ssinput(individualStudent);
+		// temporarily stores the invidual data that is related to each student
+		string tokenHolder;
+		// an array that temporarily stores all of the individual tokenHolder data
+		// this array will then be used to pass all the necessary data to create a student object
+		string dataHolder[9];
 
 
+		// this will be used as a way to store the current array index for studentDataHolder inside the while loop that is directly below
+		int studentDataCounter = 0;
 
+		// separates indvidual student data into string tokens
+		// pushes each token to studentDataHolder
+		while (getline(ssinput, tokenHolder, ',')) {
 
+			dataHolder[studentDataCounter] = tokenHolder;
+			studentDataCounter++;
 
+		}
 
-	}
+		
+		// temporarily holds the degree enum of dataHolder[8]
+		Degree degreeHolder;
+
+		// map dataHolder[8] token into appropriate enum type
+		if (dataHolder[8] == "SECURITY") {
+			degreeHolder = SECURITY;
+		}
+		else if (dataHolder[8] == "NETWORK") {
+			degreeHolder = NETWORKING;
+		}
+		else if (dataHolder[8] == "SOFTWARE") {
+			degreeHolder = SOFTWARE;
+		}
+		else {
+			degreeHolder = OTHER;
+		}
+
+		// uses dataHolder array to add individual student object
+		// stoi() function cast string into int
+		classRoster.add(dataHolder[0], dataHolder[1], dataHolder[2], dataHolder[3], stoi(dataHolder[4]), stoi(dataHolder[5]), stoi(dataHolder[6]), stoi(dataHolder[7]), degreeHolder);
+
+		}
 	
-
-
-
-	classRoster.add("A1", "John", "Smith", "John@nmsu.edu", 20, 30, 35, 40, NETWORKING);
-	
-
 	classRoster.printAll();
-	classRoster.printInvalidEmails();
+	
+
+	//classRoster.printAll();
+	//classRoster.printInvalidEmails();
 
 }
-
-
 
 // Default constructor
 Roster::Roster(int arraySize) {
@@ -104,7 +137,6 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 
 	return;
 }
-
 
 // removes students from the roster by student ID. If the student ID does not exist, 
 // the function prints an error message indicating that the student was not found.
