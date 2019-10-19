@@ -9,31 +9,30 @@ using namespace std;
 
 int main() {
 
-	const string studentData[5] =
+	const int arraySize = 5;
+
+
+	const string studentData[arraySize] =
 	{ "A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
 	"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
 	"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
 	"A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
 	"A5,Ejerson,Balabas,ebalaba@wgu.edu,31,0,SOFTWARE" };
 
-	Roster* classRoster = nullptr;
-	classRoster = new Roster(3);
-
-	int classArraySize = 0;
-	
-	
-	classRoster->add("A1", "John", "Smith", "John@nmsu.edu", 20, 30, 35, 40, NETWORKING);
-	classRoster->add("A2", "Second", "Person", "Second@nmsu.edu", 25, 10, 12, 66, SECURITY);
-	classRoster->add("A3", "Third", "Individual", "third@nmsu.edu", 23, 15, 33, 78, SOFTWARE);
-
-	// FIX ME: create a function that will get the array size anytime a classRosterArray element is added or removed
-	// for (int i = 0; i < 
+	Roster classRoster(arraySize);
 
 
-	classRoster->printAll();
+	classRoster.SetArraySize(arraySize);
+
+	classRoster.add("A1", "John", "Smith", "John@nmsu.edu", 20, 30, 35, 40, NETWORKING);
+	classRoster.add("A2", "Second", "Person", "Second@nmsu.edu", 25, 10, 12, 66, SECURITY);
+	classRoster.add("A3", "Third", "Individual", "third@nmsu.edu", 23, 15, 33, 78, SOFTWARE);
+	classRoster.add("A4", "Fourth", "HUman", "forth@nmsu.edu", 10, 11, 54, 19, SOFTWARE);
+
+	classRoster.printAll();
 
 	
-
+	
 
 	// Calls printDaysInCourses, this prints the average days for three courses
 	//newRoster->printDaysInCourse(newRoster->classRosterArray[1]->GetStudentID());
@@ -41,9 +40,6 @@ int main() {
 	//cout << sizeof(classRoster->classRosterArray) << endl;
 
 	//cout << classRoster->classRosterArray[1]->GetLastName() << endl; 
-
-
-	delete classRoster;
 
 }
 
@@ -77,7 +73,7 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 	
 	int numOfCourseDays[3] = { daysInCourseOne, daysInCourseTwo, daysInCourseThree };
 	
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < this->GetArraySize(); i++) {
 
 		if (classRosterArray[i] == nullptr) {
 
@@ -115,11 +111,11 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 // removes students from the roster by student ID. If the student ID does not exist, 
 // the function prints an error message indicating that the student was not found.
 void Roster::remove(string studentID) {
-	
-	for (int i = 0; i < 3; ++i) {
 
-		if ((classRosterArray[i] != nullptr) & (this->classRosterArray[i]->GetStudentID() == studentID)) {
-			delete this->classRosterArray[i];
+	for (int i = 0; i < this->GetArraySize(); ++i) {
+
+		if ((classRosterArray[i] != nullptr) && (this->classRosterArray[i]->GetStudentID() == studentID)) {
+			this->classRosterArray[i] = nullptr;
 		}
 
 	}
@@ -135,11 +131,13 @@ void Roster::remove(string studentID) {
 // classRosterArrayand call the print() function for each student.
 void Roster::printAll() {
 	
-	for (int i = 0; i < 3; ++i) {
 
-		cout << i + 1;
-		this->classRosterArray[i]->Print();
-		
+	for (int i = 0; i < this->GetArraySize(); ++i) {
+		if (classRosterArray[i] != nullptr) {
+			cout << i + 1;
+			this->classRosterArray[i]->Print();
+		}
+
 	}
 
 	return;
@@ -151,7 +149,7 @@ void Roster::printDaysInCourse(string studentID) {
 
 	int averageNumberOfDays = 0;
 
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < this->GetArraySize(); ++i) {
 
 		if (this->classRosterArray[i]->GetStudentID() == studentID) {
 			averageNumberOfDays = ((this->classRosterArray[i]->GetDaysInCourses()[0] + this->classRosterArray[i]->GetDaysInCourses()[1] + this->classRosterArray[i]->GetDaysInCourses()[2]) / 3);
@@ -170,7 +168,7 @@ void Roster::printInvalidEmails() {
 
 	// check for space and see if @ and . is present.
 
-	cout << "Invalid Emails";
+	cout << "Invalid Emails" << endl;
 		return;
 
 
@@ -198,6 +196,17 @@ void Roster::printByDegreeProgram(int degreeProgram) {
 	}
 
 	return;
+}
+
+void Roster::SetArraySize(const int arraySize) {
+
+	this->arraySize = arraySize;
+
+	return;
+}
+
+int Roster::GetArraySize() {
+	return arraySize;
 }
 
 

@@ -25,7 +25,14 @@ public:
 	void printInvalidEmails();
 	void printByDegreeProgram(int degreeProgram);
 
+	// Helper function to manage array size during removal and addition of student
+	void SetArraySize(const int arraySize);
+	int GetArraySize();
+
 	Student** classRosterArray;
+
+private:
+	int arraySize;
 	
 };
 
