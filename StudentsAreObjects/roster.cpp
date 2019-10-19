@@ -71,10 +71,23 @@ int main() {
 		}
 	
 	classRoster.printAll();
+	classRoster.printInvalidEmails();
 	
+	//loop through classRosterArray and for each element:
+	for (int i = 0; i < arraySize; ++i) {
+		classRoster.printDaysInCourse(classRoster.classRosterArray[i]->GetStudentID());
+	}
 
-	//classRoster.printAll();
-	//classRoster.printInvalidEmails();
+	classRoster.printByDegreeProgram(SOFTWARE);
+
+	// This will remove a student twice, which should result in an error message
+	classRoster.remove("A3");
+	classRoster.remove("A3");
+
+	// Explicitly calls the Roster destructor to release memory
+	classRoster.~Roster();
+
+	return 0;
 
 }
 
@@ -184,7 +197,7 @@ void Roster::printAll() {
 // The student is identified by the studentID parameter.
 void Roster::printDaysInCourse(string studentID) {
 
-	int averageNumberOfDays = 0;
+	float averageNumberOfDays = 0.0;
 
 	for (int i = 0; i < this->GetArraySize(); ++i) {
 

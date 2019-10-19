@@ -10,13 +10,12 @@ using namespace std;
 // Overrides student.cpp Print() function
 void SoftwareStudent::Print() {
 
-
 	Student::Print();
-
 	return;
 }
 
 Degree SoftwareStudent::GetDegreeProgram() {
 
 	return degreeProgram;
+
 }
