@@ -9,37 +9,37 @@ using namespace std;
 
 int main() {
 
-	const int arraySize = 5;
-
-
-	const string studentData[arraySize] =
+	// Contains an array of student data, needs to be transformed into objects
+	const string studentData[5] =
 	{ "A1,John,Smith,John1989@gm ail.com,20,30,35,40,SECURITY",
 	"A2,Suzan,Erickson,Erickson_1990@gmailcom,19,50,30,40,NETWORK",
 	"A3,Jack,Napoli,The_lawyer99yahoo.com,19,20,40,33,SOFTWARE",
 	"A4,Erin,Black,Erin.black@comcast.net,22,50,58,40,SECURITY",
 	"A5,Ejerson,Balabas,ebalaba@wgu.edu,31,0,SOFTWARE" };
 
+	const int arraySize = sizeof(studentData) / sizeof(studentData[0]);
+
 	Roster classRoster(arraySize);
-
-
 	classRoster.SetArraySize(arraySize);
 
+	// Populates the classRosterArray using the studentData array
+	for (int i = 0; i < arraySize; ++i) {
+
+
+
+
+
+
+	}
+	
+
+
+
 	classRoster.add("A1", "John", "Smith", "John@nmsu.edu", 20, 30, 35, 40, NETWORKING);
-	classRoster.add("A2", "Second", "Person", "Second@nmsu.edu", 25, 10, 12, 66, SECURITY);
-	classRoster.add("A3", "Third", "Individual", "third@nmsu.edu", 23, 15, 33, 78, SOFTWARE);
-	classRoster.add("A4", "Fourth", "HUman", "forth@nmsu.edu", 10, 11, 54, 19, SOFTWARE);
+	
 
 	classRoster.printAll();
-
-	
-	
-
-	// Calls printDaysInCourses, this prints the average days for three courses
-	//newRoster->printDaysInCourse(newRoster->classRosterArray[1]->GetStudentID());
-
-	//cout << sizeof(classRoster->classRosterArray) << endl;
-
-	//cout << classRoster->classRosterArray[1]->GetLastName() << endl; 
+	classRoster.printInvalidEmails();
 
 }
 
@@ -60,7 +60,6 @@ Roster::Roster(int arraySize) {
 
 // Default Destructor
 Roster::~Roster() {
-	cout << "Destructor called in Roster." << endl;
 
 	delete[] classRosterArray;
 	classRosterArray = NULL;
@@ -96,9 +95,8 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 					break;
 				}
 			
-			// stops the for loop when all student have been added
+			// stops the for loop when all students have been added
 			break;
-			
 			
 		}
 
@@ -112,14 +110,21 @@ void Roster::add(string studentID, string firstName, string lastName, string ema
 // the function prints an error message indicating that the student was not found.
 void Roster::remove(string studentID) {
 
+	bool isFound = false;
+
 	for (int i = 0; i < this->GetArraySize(); ++i) {
 
 		if ((classRosterArray[i] != nullptr) && (this->classRosterArray[i]->GetStudentID() == studentID)) {
 			this->classRosterArray[i] = nullptr;
+			isFound = true;
 		}
 
 	}
 	
+	if (isFound == false) {
+		cout << "ERROR: Student does not exist!" << endl;
+	}
+
 	return;
 }
 
@@ -130,9 +135,9 @@ void Roster::remove(string studentID) {
 // The printAll() function should loop through all  the students in 
 // classRosterArrayand call the print() function for each student.
 void Roster::printAll() {
-	
 
 	for (int i = 0; i < this->GetArraySize(); ++i) {
+
 		if (classRosterArray[i] != nullptr) {
 			cout << i + 1;
 			this->classRosterArray[i]->Print();
@@ -166,11 +171,36 @@ void Roster::printDaysInCourse(string studentID) {
 // and should not include a space (' ').
 void Roster::printInvalidEmails() {
 
+	bool isValid = false;
+	string emailHolder = "";
+	
 	// check for space and see if @ and . is present.
+	for (int i = 0; i < this->GetArraySize(); ++i) {
 
-	cout << "Invalid Emails" << endl;
+		if (classRosterArray[i] != nullptr) {
+			emailHolder = classRosterArray[i]->GetEmailAddress();
+
+			// checks to make sure that the characters '@' and '.' exist within the string
+			// checks to make sure that the charater ' ' (space), DOES NOT exist within the string
+			// if all condition stated above is met, the email address provided is valid
+			if ((emailHolder.find('.') < emailHolder.length()) && (emailHolder.find('@') < emailHolder.length()) && (emailHolder.find(' ') > emailHolder.length())) {
+				isValid = true;
+			}
+			else {
+
+				isValid = false;
+				
+			}
+
+			// prints the invalid email if checker sets isValid to false
+			if (isValid == false) {
+				cout << emailHolder << endl;
+			}
+		}
+
+	}
+
 		return;
-
 
 }
 
